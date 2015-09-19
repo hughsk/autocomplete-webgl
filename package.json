@@ -1,0 +1,16 @@
+{
+  "name": "autocomplete-webgl",
+  "version": "1.0.0",
+  "dependencies": {
+    "fuzzaldrin": "^2.1.0",
+    "gl-api": "^1.0.3",
+    "shallow-copy": "0.0.1"
+  },
+  "providedServices": {
+    "autocomplete.provider": {
+      "versions": {
+        "2.0.0": "provide"
+      }
+    }
+  }
+}
