@@ -5,6 +5,7 @@
   "dependencies": {
     "fuzzaldrin": "^2.1.0",
     "gl-api": "^1.0.3",
+    "gl-constants": "^1.0.0",
     "shallow-copy": "0.0.1"
   },
   "providedServices": {

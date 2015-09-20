@@ -1,7 +1,11 @@
 'use babel'
 
-import Provider from './provider'
+import ProviderMethods from './provider-methods'
+import ProviderConstants from './provider-constants'
 
-var completionProvider = new Provider()
+var completionProviders = [
+  new ProviderMethods(),
+  new ProviderConstants()
+]
 
-exports.provide = () => completionProvider
+exports.provide = () => completionProviders

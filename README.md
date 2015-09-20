@@ -4,4 +4,4 @@
 
 ![](http://i.imgur.com/lu1g4Ot.gif)
 
-Method listing compiled from [gl-api](http://github.com/stackgl/gl-api). Pull requests with improvements/corrections welcome!
+Method listing compiled from [gl-api](http://github.com/stackgl/gl-api), and constant listing compiled from [gl-constants](http://github.com/mattdesl/gl-constants) (thanks [@mattdesl](http://github.com/mattdesl)!). Pull requests with improvements/corrections welcome!
