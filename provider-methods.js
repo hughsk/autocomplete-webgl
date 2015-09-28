@@ -6,7 +6,7 @@ import api from 'gl-api'
 
 export default class WebGLProvider {
   constructor () {
-    this.selector = '.source.js'
+    this.selector = '.source.js, .source.coffee'
     this.inclusionPriority = 10
     this.excludeLowerPriority = false
     this.methodCache = {}
@@ -14,6 +14,8 @@ export default class WebGLProvider {
 
   getSuggestions ({ editor, bufferPosition }) {
     const prefix = this.getPrefix(editor, bufferPosition)
+    const grammar = editor.getGrammar()
+
     if (!prefix) return []
 
     const matches = fuzzaldrin(api, prefix, { key: 'name' })
@@ -23,7 +25,7 @@ export default class WebGLProvider {
       const name = method.name
 
       return copy(this.methodCache[name] = (
-        this.methodCache[name] || this.getMethodSuggestion(method)
+        this.methodCache[name] || this.getMethodSuggestion(method, grammar)
       ))
     })
   }
@@ -37,7 +39,7 @@ export default class WebGLProvider {
       : line.slice(idx)
   }
 
-  getMethodSuggestion (method) {
+  getMethodSuggestion (method, grammar) {
     const name = method.name.replace('gl.', '')
     const params = Object.keys(method.parameters)
       .join(',').split(',')
@@ -46,10 +48,12 @@ export default class WebGLProvider {
     const snippet = params
       .map((name, i) => '${' + (i + 1) + ':' + name + '}')
 
+    const isCoffee = grammar.name == "CoffeeScript"
+
     return {
       type: 'method',
-      snippet: `${name}(${snippet.join(', ')})`,
-      displayText: `gl.${name}(${params.join(', ')})`,
+      snippet: isCoffee ? `${name} ${snippet.join(', ')}` : `${name}(${snippet.join(', ')})`,
+      displayText: isCoffee ? `gl.${name} ${params.join(', ')}` : `gl.${name}(${params.join(', ')})`,
       leftLabel: method.usage.split(/\s/).shift() || '',
       description: method.description.split(/\n/).shift() || '',
       descriptionMoreURL: method.href
